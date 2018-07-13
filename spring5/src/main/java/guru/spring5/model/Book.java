@@ -5,15 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
     @Data
-    @NoArgsConstructor
+//    @NoArgsConstructor
     @RequiredArgsConstructor
     @AllArgsConstructor
     @Entity
@@ -25,6 +22,8 @@ import java.util.Set;
     private String title;
     private String isbn;
     private String publisher;
-
-    private Set<Author>authors=new HashSet<>();
+    @ManyToMany
+//            (fetch = FetchType.EAGER)
+    @JoinTable(name = "author_book",joinColumns = @JoinColumn(name = "book_id"),inverseJoinColumns = @JoinColumn(name = "author_id"))//?
+    private Set<Author> authors=new HashSet<>();
 }
